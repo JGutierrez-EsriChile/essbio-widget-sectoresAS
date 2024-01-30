@@ -6,5 +6,10 @@
   "author": "Esri Chile",
   "description": "Visualización de sectores AS",
   "copyright": "",
-  "license": "http://www.apache.org/licenses/LICENSE-2.0"
+  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "properties": {
+    "hasConfig": true,
+    "hasStyle": true,
+    "hasLocale": false
+  }
 }
