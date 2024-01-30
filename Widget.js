@@ -58,7 +58,6 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       console.log('postCreate');
     },
     startup: function() {
-      console.log("this.config: ",this.config)
       this.inherited(arguments);
       this.sueeem = this.config.sueeem
       this.FeatureServer = this.config.FeatureServer
@@ -72,7 +71,6 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       this.FeatureServer = this.config.FeatureServer
       this.layers = this.config.layers
       this.postOpenSectoresAS();
-      console.log("this.config: ",this.config)
       this.getPanel().setPosition({relativeTo: "map", top: 30, right: 5, width: 420, height:800});
     },
     onClose: function(){
@@ -318,19 +316,6 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       })));
     },
 
-    clickMapAS: function(featureSet){
-      var that = this;
-      function awaitResolveAS(x) {return new Promise(resolve=>{setTimeout(()=>{resolve(x);},50);});}
-      async function getResolveAS() {
-        var fs = await awaitResolveAS(that.featureArray);
-        if(that.featureArray.length > 1)
-          if(document.getElementById("Sectorizar_AS").style.display == "block"){
-            that.selectObjectAS(that.featureArray[that.featureArray.length -1]);
-          };
-      };
-      that.featureArray.push(featureSet);
-      // getResolveAS();
-    },
     selectObjectAS: function(featureSet){
       var nombreCapa = featureSet.getLayer().name;
       var identiCapa = featureSet.getLayer().id;
