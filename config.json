@@ -1,3 +1,6 @@
 {
-	"configText":"Sectorizar"
+	"configText":"Sectorización de Aguas Servidas",
+    "sueeem": "Seleccionar un elemento de AS en el mapa",
+	"FeatureServer" : "https://sigdesa.essbio.cl/server/rest/services/UtilityNetworkAS/Sewer_Utility_Network_qa/FeatureServer/",
+	"layers" : ["300","305","310","315","320"]
 }

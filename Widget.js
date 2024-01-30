@@ -45,7 +45,9 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
     featureSet: null,
     clearFeatsEvt: null,
     baseClass: 'jimu-widget-sectores-as',
-    sueeem: 'Seleccionar un elemento en el mapa',
+    sueeem: '',
+    FeatureServer: '',
+    layers: [],
     numeroServicios: 0,
     cantidadClientes: 0,
     metrosRedes: 0,
@@ -56,13 +58,21 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       console.log('postCreate');
     },
     startup: function() {
+      console.log("this.config: ",this.config)
       this.inherited(arguments);
+      this.sueeem = this.config.sueeem
+      this.FeatureServer = this.config.FeatureServer
+      this.layers = this.config.layers
       console.log('startup');
     },
     onOpen: function(){
       console.log('onOpen');
       this.clear();
+      this.sueeem = this.config.sueeem
+      this.FeatureServer = this.config.FeatureServer
+      this.layers = this.config.layers
       this.postOpenSectoresAS();
+      console.log("this.config: ",this.config)
       this.getPanel().setPosition({relativeTo: "map", top: 30, right: 5, width: 420, height:800});
     },
     onClose: function(){
@@ -249,8 +259,6 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       this.numeroServicios = 0;
       this.cantidadClientes = 0;
       this.metrosRedes = 0;
-      fs = "https://sigdesa.essbio.cl/server/rest/services/UtilityNetworkAS/Sewer_Utility_Network_qa/FeatureServer/"
-      LY = ['300','305','310','315','320']//,'900','905','910','920']
       map = that.map;
 
       var query = new Query();
@@ -259,8 +267,8 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       query.outFields = ['*'];
       query.outSpatialReference= new SpatialReference(102100);
 
-      LY.forEach(ly =>{
-        var qt = new QueryTask(fs+ly);
+      that.layers.forEach(ly =>{
+        var qt = new QueryTask(that.FeatureServer + ly);
         qt.execute(query, function (response) {
           response.features.forEach(ft => {
             if (ly == '300'){
@@ -282,11 +290,11 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
     },
     eventoMapaServiciosAS: function(){
       that = this;
-      this.own(this.setFeatsEvt = on(this.map.infoWindow, "set-features", lang.hitch(this, function(){
+      that.own(this.setFeatsEvt = on(that.map.infoWindow, "set-features", lang.hitch(this, function(){
         that.clear()
         //enable navigation if more than one feature is selected
-        if(this.map.infoWindow.features.length > 0){
-          this.map.infoWindow.features.forEach(feature => {
+        if(that.map.infoWindow.features.length > 0){
+          that.map.infoWindow.features.forEach(feature => {
             var layerID = feature.getLayer().id;
             if(layerID.includes('servidas')||layerID.includes('SERVIDAS')||layerID.includes('Servidas')){
               that.resaltarASEnMapa(feature, [128,0,0], 16);
@@ -297,15 +305,15 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
           that.clear();
         }
       })));
-      this.own(this.selChgEvt = on(this.map.infoWindow, "selection-change", lang.hitch(this, function (evt) {
+      that.own(this.selChgEvt = on(that.map.infoWindow, "selection-change", lang.hitch(this, function (evt) {
         if(evt.target.getSelectedFeature()){
           console.log("selection-change\n", evt.target)
         }
       })));
-      this.own(this.clearFeatsEvt = on(this.map.infoWindow, "clear-features", lang.hitch(this, function (evt) {
+      that.own(this.clearFeatsEvt = on(that.map.infoWindow, "clear-features", lang.hitch(this, function (evt) {
         if(!evt.isIntermediate){
-          this.clear();
-          this.postOpenSectoresAS();
+          that.clear();
+          that.postOpenSectoresAS();
         }
       })));
     },
