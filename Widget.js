@@ -179,8 +179,8 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
           return inlineRadio2_AS.value;
         }else if(inlineRadioA_AS.checked){
           return inlineRadioA_AS.value;
-        }else if(inlineRadioB_AS.checked){
-          return inlineRadioB_AS.value;
+        // }else if(inlineRadioB_AS.checked){
+        //   return inlineRadioB_AS.value;
         }else{
           return "";
         }
