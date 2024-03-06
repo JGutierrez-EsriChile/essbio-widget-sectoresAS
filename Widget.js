@@ -352,8 +352,8 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
 
         if(radioA_AS.checked && inputA.value){
           btnMostrarSector_AS.disabled = false;
-        }else if(radioB_AS.checked && inputB.value){
-          btnMostrarSector_AS.disabled = false;
+        // }else if(radioB_AS.checked && inputB.value){
+        //   btnMostrarSector_AS.disabled = false;
         }else{
           btnMostrarSector_AS.disabled = true;
         }
