@@ -116,11 +116,13 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
           inputA_AS.placeholder = that.sueeem;
         } else  {
           inputA_AS.placeholder = "";
+          inlineRadioA_AS.checked = false
         };
         // if(id == "RadioB_AS") {
         //   inputB_AS.placeholder = that.sueeem;
         // } else  {
         //   inputB_AS.placeholder = "";
+        //   inlineRadioB_AS.checked = false
         // };
 
         //no utility network
