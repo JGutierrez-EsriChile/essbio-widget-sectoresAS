@@ -322,7 +322,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
     
       if(identiCapa.includes('SERVIDAS')){    
         var titulo_AS = document.getElementById("subtitulo_AS");
-        titulo_AS.innerHTML = "<h6>"+nombreCapa+"</h6>";
+        // titulo_AS.innerHTML = "<h6>"+nombreCapa+"</h6>";
 
         var assetid = featureSet.attributes["assetid"];
         var systemsubnetwork = featureSet.attributes["systemsubnetworkname"];
