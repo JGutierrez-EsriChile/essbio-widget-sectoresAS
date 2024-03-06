@@ -289,6 +289,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
           that.map.infoWindow.features.forEach(feature => {
             var layerID = feature.getLayer().id;
             if(layerID.includes('servidas')||layerID.includes('SERVIDAS')||layerID.includes('Servidas')){
+              console.log(that);
               that.resaltarASEnMapa(feature, [128,0,0], 16);
               that.selectObjectAS(feature);
             }
