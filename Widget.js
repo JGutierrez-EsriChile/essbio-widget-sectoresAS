@@ -100,9 +100,9 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       
       //no utility network
       var inlineRadioA_AS = document.getElementById("RadioA_AS")
-      var inlineRadioB_AS = document.getElementById("RadioB_AS")
+      // var inlineRadioB_AS = document.getElementById("RadioB_AS")
       var inputA_AS = document.getElementById("inputA_AS")
-      var inputB_AS = document.getElementById("inputB_AS")
+      // var inputB_AS = document.getElementById("inputB_AS")
       //no utility network
       var inlineRadio1_AS = document.getElementById("Radio1_AS")
       var inlineRadio2_AS = document.getElementById("Radio2_AS")
@@ -117,19 +117,11 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
         } else  {
           inputA_AS.placeholder = "";
         };
-        if(id == "RadioB_AS") {
-          inputB_AS.placeholder = that.sueeem;
-        } else  {
-          inputB_AS.placeholder = "";
-        };
-
-        if(inlineRadioA_AS.checked && inputA_AS.value){
-          btnMostrarSector_AS.disabled = false;
-        }else if(inlineRadioB_AS.checked && inputB_AS.value){
-          btnMostrarSector_AS.disabled = false;
-        }else{
-          btnMostrarSector_AS.disabled = true;
-        }
+        // if(id == "RadioB_AS") {
+        //   inputB_AS.placeholder = that.sueeem;
+        // } else  {
+        //   inputB_AS.placeholder = "";
+        // };
 
         //no utility network
         if(id == "Radio1_AS") {
@@ -147,8 +139,8 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
 
         if(inlineRadioA_AS.checked && inputA_AS.value){
           btnMostrarSector_AS.disabled = false;
-        }else if(inlineRadioB_AS.checked && inputB_AS.value){
-          btnMostrarSector_AS.disabled = false;
+        // }else if(inlineRadioB_AS.checked && inputB_AS.value){
+        //   btnMostrarSector_AS.disabled = false;
         }else if(inlineRadio1_AS.checked && input1_AS.value){
           btnMostrarSector_AS.disabled = false;
         }else if(inlineRadio2_AS.checked && input2_AS.value){
@@ -162,8 +154,8 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
         that.map.graphics.clear();
         if(inlineRadioA_AS.checked && inputA_AS.value){
           that.get_Sectorizar_AS(inputA_AS.alt);
-        }else if(inlineRadioB_AS.checked && inputB_AS.value){
-          that.get_Sectorizar_AS(inputB_AS.alt);
+        // }else if(inlineRadioB_AS.checked && inputB_AS.value){
+        //   that.get_Sectorizar_AS(inputB_AS.alt);
         }else if(inlineRadio1_AS.checked && input1_AS.value){
           that.get_Sectorizar_AS(input1_AS.alt);
         }else if(inlineRadio2_AS.checked && input2_AS.value){
@@ -179,7 +171,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
         var inlineRadio1_AS = document.getElementById("Radio1_AS")
         var inlineRadio2_AS = document.getElementById("Radio2_AS")
         var inlineRadioA_AS = document.getElementById("RadioA_AS")
-        var inlineRadioB_AS = document.getElementById("RadioB_AS")
+        // var inlineRadioB_AS = document.getElementById("RadioB_AS")
 
         if(inlineRadio1_AS.checked){
           return inlineRadio1_AS.value;
@@ -343,14 +335,14 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       function slct_AS_UTILITY(assetid, systemsubnetwork, sewershedsubnetwork){
         //utility
         var radioA_AS = document.getElementById("RadioA_AS");
-        var radioB_AS = document.getElementById("RadioB_AS");
+        // var radioB_AS = document.getElementById("RadioB_AS");
         var inputA_AS = document.getElementById("inputA_AS");
-        var inputB_AS = document.getElementById("inputB_AS");
+        // var inputB_AS = document.getElementById("inputB_AS");
 
         inputA_AS.value = systemsubnetwork;
         inputA_AS.alt = "systemsubnetworkname = '" + systemsubnetwork + "'";
-        inputB_AS.value = sewershedsubnetwork;
-        inputB_AS.alt = "sewershedsubnetworkname = '" + sewershedsubnetwork + "'";
+        // inputB_AS.value = sewershedsubnetwork;
+        // inputB_AS.alt = "sewershedsubnetworkname = '" + sewershedsubnetwork + "'";
 
         /*-*/
         var btnMostrarSector_AS = document.getElementById("btnMostrarSector_AS");
@@ -425,7 +417,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       document.getElementById("Sectorizar_AS").style.display = "block";
       
       document.getElementById("RadioA_AS").checked = false;
-      document.getElementById("RadioB_AS").checked = false;
+      // document.getElementById("RadioB_AS").checked = false;
       document.getElementById("Radio1_AS").checked = false;
       document.getElementById("Radio2_AS").checked = false;
 
@@ -441,10 +433,10 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       inputA_AS.value = "";
       inputA_AS.alt = "1 = 1";
       inputA_AS.placeholder = that.sueeem;
-      var inputB_AS = document.getElementById("inputB_AS");
-      inputB_AS.value = "";
-      inputB_AS.alt = "1 = 1";
-      inputB_AS.placeholder = that.sueeem;
+      // var inputB_AS = document.getElementById("inputB_AS");
+      // inputB_AS.value = "";
+      // inputB_AS.alt = "1 = 1";
+      // inputB_AS.placeholder = that.sueeem;
 
       this.getPanel().setPosition({relativeTo: "map", top: 30, right: 5, width: 420, height:800});
     },
