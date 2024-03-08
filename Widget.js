@@ -95,6 +95,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
     postOpenSectoresAS: function(){
       var that = this;
       console.log('postOpenSectoresAS');
+      Clear_AS = this.clear()
       radioSelect_AS = funcionRadioSelect_AS;
       Sectorizar_AS = fn_Sectorizar_AS;
       
