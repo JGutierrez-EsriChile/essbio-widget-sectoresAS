@@ -95,7 +95,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
     postOpenSectoresAS: function(){
       var that = this;
       console.log('postOpenSectoresAS');
-      Clear_AS = this.clear()
+      Clear_AS = fn_Limpiar_AS
       radioSelect_AS = funcionRadioSelect_AS;
       Sectorizar_AS = fn_Sectorizar_AS;
       
@@ -168,6 +168,9 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
           input2_AS.alt = "codigo_subcuenca = '" + input2_AS.value + "'";
           that.get_Sectorizar_AS(input2_AS.alt);
         }
+      }
+      function fn_Limpiar_AS(){
+        that.clear();
       }
     },
     resumenSectorAS: function(){
