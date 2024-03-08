@@ -155,12 +155,16 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       function fn_Sectorizar_AS(){
         that.map.graphics.clear();
         if(inlineRadioA_AS.checked && inputA_AS.value){
+          inputA_AS.alt = "systemsubnetworkname = '" + inputA_AS.value + "'";
           that.get_Sectorizar_AS(inputA_AS.alt);
         // }else if(inlineRadioB_AS.checked && inputB_AS.value){
+        //   inputB_AS.alt = "sewershedsubnetworkname = '" + inputB_AS.value + "'";
         //   that.get_Sectorizar_AS(inputB_AS.alt);
         }else if(inlineRadio1_AS.checked && input1_AS.value){
+          input1_AS.alt = "codigo_area_tributaria = '" + input1_AS.value + "'";
           that.get_Sectorizar_AS(input1_AS.alt);
         }else if(inlineRadio2_AS.checked && input2_AS.value){
+          input2_AS.alt = "codigo_subcuenca = '" + input2_AS.value + "'";
           that.get_Sectorizar_AS(input2_AS.alt);
         }
       }
