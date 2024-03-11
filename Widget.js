@@ -27,6 +27,7 @@ define([
   'jimu/BaseWidget', 
   'esri/layers/FeatureLayer', 
   'esri/graphic',
+  'esri/graphicsUtils',
   'esri/tasks/GPMessage',
   'esri/tasks/Geoprocessor',
   'esri/symbols/SimpleMarkerSymbol',
@@ -38,7 +39,7 @@ define([
   'jimu/dijit/Report', 
   'jimu/dijit/PageUtils'
 ],
-function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferred, all, BaseWidget,FeatureLayer,Graphic,GPMessage, Geoprocessor,SimpleMarkerSymbol,SimpleLineSymbol,SimpleFillSymbol,Color,esriRequest,SpatialReference,Report,PageUtils) {
+function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferred, all, BaseWidget,FeatureLayer,Graphic,graphicsUtils,GPMessage, Geoprocessor,SimpleMarkerSymbol,SimpleLineSymbol,SimpleFillSymbol,Color,esriRequest,SpatialReference,Report,PageUtils) {
   //To create a widget, you need to derive from BaseWidget.
   return declare([BaseWidget], {
     featureArray: new Array(),
@@ -270,6 +271,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       that.layers.forEach(ly =>{
         var qt = new QueryTask(that.FeatureServer + ly);
         qt.execute(query, function (response) {
+          var extent = response.features[0].geometry.getExtent()
           response.features.forEach(ft => {
             if (ly == '300'){
               if (ft.attributes['cantidad_cliente'] > 0){
@@ -280,6 +282,9 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
             if (ly == '315'){
               var METROSLINEALES = ft.attributes.Shape__Length.toFixed(2);
               that.metrosRedes += parseFloat(METROSLINEALES)
+            }
+            if (ft.geometry.getExtent()){
+              extent = extent.union(ft.geometry.getExtent());
             }
             that.resaltarASEnMapa(ft, [128,0,0], 16);
             that.resumenSectorAS();
