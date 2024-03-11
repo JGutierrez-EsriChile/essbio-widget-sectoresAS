@@ -177,7 +177,6 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
     resumenSectorAS: function(){
       that = this;
       that.clearNode("zoneInfo_AS");
-      console.log('resumenSectorAS');
       function sector(){
         var inlineRadio1_AS = document.getElementById("Radio1_AS")
         var inlineRadio2_AS = document.getElementById("Radio2_AS")
@@ -289,6 +288,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
             that.resaltarASEnMapa(ft, [128,0,0], 16);
             that.resumenSectorAS();
           })
+          that.map.setExtent(extent);
         });
       });
       // that.resumenSectorAS();
