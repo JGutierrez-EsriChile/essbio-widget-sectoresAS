@@ -272,6 +272,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
         qt.execute(query, function (response) {
           var extent = response.features[0].geometry.getExtent()
           response.features.forEach(ft => {
+            console.log('ly: ', ly, ' assetgroup: ', ft.attributes.assetgroup, '\n', 'ft: ', ft)
             if (ly == '300' && ft.attributes.assetgroup == 7){
               numeroServicios++;
               if (ft.attributes.cantidad_cliente > 0){
@@ -282,9 +283,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
               var METROSLINEALES = ft.attributes.Shape__Length.toFixed(2);
               metrosRedes += parseFloat(METROSLINEALES)
             }
-            if (ft.geometry.getExtent()){
-              extent = extent.union(ft.geometry.getExtent());
-            }
+            extent = extent.union(ft.geometry.getExtent());
             that.resaltarASEnMapa(ft, [128,0,0], 16);
           })
           that.resumenSectorAS(numeroServicios, cantidadClientes, metrosRedes);
