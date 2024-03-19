@@ -270,7 +270,9 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       that.layers.forEach(ly =>{
         var qt = new QueryTask(that.FeatureServer + ly);
         qt.execute(query, function (response) {
-          var extent = response.features[0].geometry.getExtent()
+          if (ly == '315'){
+            var extent = response.features[0].geometry.getExtent()
+          }
           response.features.forEach(ft => {
             console.log('ly: ', ly, ' assetgroup: ', ft.attributes.assetgroup, '\n', 'ft: ', ft)
             if (ly == '300' && ft.attributes.assetgroup == 7){
@@ -282,12 +284,14 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
             if (ly == '315' && ft.attributes.assetgroup != 3){
               var METROSLINEALES = ft.attributes.Shape__Length.toFixed(2);
               metrosRedes += parseFloat(METROSLINEALES)
+              extent = extent.union(ft.geometry.getExtent());
             }
-            extent = extent.union(ft.geometry.getExtent());
             that.resaltarASEnMapa(ft, [128,0,0], 16);
           })
           that.resumenSectorAS(numeroServicios, cantidadClientes, metrosRedes);
-          that.map.setExtent(extent);
+          if (ly == '315'){
+            that.map.setExtent(extent);
+          }
         });
       });
     },
