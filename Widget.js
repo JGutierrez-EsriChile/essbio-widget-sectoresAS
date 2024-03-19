@@ -174,7 +174,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
         that.clear();
       }
     },
-    resumenSectorAS: function(){
+    resumenSectorAS: function(numeroServicios, cantidadClientes, metrosRedes){
       that = this;
       that.clearNode("zoneInfo_AS");
       function sector(){
@@ -219,7 +219,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       dosPunto.innerHTML = ":";
       var value = dat.insertCell(-1);
       value.style.padding = ".1rem";
-      value.innerHTML =  this.numeroServicios;
+      value.innerHTML =  numeroServicios;
       var end = dat.insertCell(-1);
       end.style.padding = ".1rem";
       end.innerHTML =  "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -234,7 +234,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       dosPunto.innerHTML = ":";
       var value = dat.insertCell(-1);
       value.style.padding = ".1rem";
-      value.innerHTML =  this.cantidadClientes;
+      value.innerHTML =  cantidadClientes;
       var end = dat.insertCell(-1);
       end.style.padding = ".1rem";
       end.innerHTML =  "&nbsp;";
@@ -243,22 +243,22 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       var dat = tBody.insertRow(-1);
       var name = dat.insertCell(-1);
       name.style.padding = ".1rem";
-      name.innerHTML = "Metros de Red";
+      name.innerHTML = "Largo de Red (mts)";
       var dosPunto = dat.insertCell(-1);
       dosPunto.style.padding = ".1rem";
       dosPunto.innerHTML = ":";
       var value = dat.insertCell(-1);
       value.style.padding = ".1rem";
-      value.innerHTML =  this.metrosRedes.toFixed(2);
+      value.innerHTML =  metrosRedes.toFixed(2);
       var end = dat.insertCell(-1);
       end.style.padding = ".1rem";
       end.innerHTML =  "&nbsp;";
     },
     get_Sectorizar_AS: async function(query_str){
       var that = this;
-      this.numeroServicios = 0;
-      this.cantidadClientes = 0;
-      this.metrosRedes = 0;
+      var numeroServicios = 0;
+      var cantidadClientes = 0;
+      var metrosRedes = 0;
       map = that.map;
 
       var query = new Query();
@@ -272,26 +272,25 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
         qt.execute(query, function (response) {
           var extent = response.features[0].geometry.getExtent()
           response.features.forEach(ft => {
-            if (ly == '300'){
-              if (ft.attributes['cantidad_cliente'] > 0){
-                that.numeroServicios++;
-                that.cantidadClientes += ft.attributes['cantidad_cliente'];
+            if (ly == '300' && ft.attributes.assetgroup == 7){
+              numeroServicios++;
+              if (ft.attributes.cantidad_cliente > 0){
+                cantidadClientes += ft.attributes.cantidad_cliente;
               }
             }
-            if (ly == '315'){
+            if (ly == '315' && ft.attributes.assetgroup != 3){
               var METROSLINEALES = ft.attributes.Shape__Length.toFixed(2);
-              that.metrosRedes += parseFloat(METROSLINEALES)
+              metrosRedes += parseFloat(METROSLINEALES)
             }
             if (ft.geometry.getExtent()){
               extent = extent.union(ft.geometry.getExtent());
             }
             that.resaltarASEnMapa(ft, [128,0,0], 16);
-            that.resumenSectorAS();
           })
+          that.resumenSectorAS(numeroServicios, cantidadClientes, metrosRedes);
           that.map.setExtent(extent);
         });
       });
-      // that.resumenSectorAS();
     },
     eventoMapaServiciosAS: function(){
       that = this;
