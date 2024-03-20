@@ -337,11 +337,13 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
         var assetid = featureSet.attributes["assetid"];
         var systemsubnetwork = featureSet.attributes["systemsubnetworkname"];
         var sewershedsubnetwork = featureSet.attributes["sewershedsubnetworkname"];
-        slct_AS_UTILITY(assetid,systemsubnetwork,sewershedsubnetwork);
+        slct_AS_UTILITY(assetid, systemsubnetwork, sewershedsubnetwork);
 
         var codigo_area_tributaria = featureSet.attributes["codigo_area_tributaria"];
         var codigo_subcuenca = featureSet.attributes["codigo_subcuenca"];
-        slct(assetid,codigo_area_tributaria,codigo_subcuenca);
+        if (codigo_area_tributaria != null && codigo_subcuenca != null){
+          slct(assetid, codigo_area_tributaria, codigo_subcuenca);        
+        }
 
         document.getElementById("zoneInfo_AS").innerHTML = "";
       } else {
