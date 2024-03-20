@@ -304,7 +304,6 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
           that.map.infoWindow.features.forEach(feature => {
             var layerID = feature.getLayer().id;
             if(layerID.includes('servidas')||layerID.includes('SERVIDAS')||layerID.includes('Servidas')){
-              console.log(that);
               that.resaltarASEnMapa(feature, [128,0,0], 16);
               that.selectObjectAS(feature);
             }
@@ -325,30 +324,32 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
         }
       })));
     },
-
     selectObjectAS: function(featureSet){
+      var titulo_AS = document.getElementById("subtitulo_AS");
       var nombreCapa = featureSet.getLayer().name;
       var identiCapa = featureSet.getLayer().id;
+      console.log(identiCapa)
     
       if(identiCapa.includes('SERVIDAS')){    
-        var titulo_AS = document.getElementById("subtitulo_AS");
         // titulo_AS.innerHTML = "<h6>"+nombreCapa+"</h6>";
 
-        var assetid = featureSet.attributes["assetid"];
-        var systemsubnetwork = featureSet.attributes["systemsubnetworkname"];
-        var sewershedsubnetwork = featureSet.attributes["sewershedsubnetworkname"];
+        var assetid = featureSet.attributes.assetid;
+        var systemsubnetwork = featureSet.attributes.systemsubnetworkname;
+        var sewershedsubnetwork = featureSet.attributes.sewershedsubnetworkname;
         slct_AS_UTILITY(assetid, systemsubnetwork, sewershedsubnetwork);
 
-        var codigo_area_tributaria = featureSet.attributes["codigo_area_tributaria"];
-        var codigo_subcuenca = featureSet.attributes["codigo_subcuenca"];
-        if (codigo_area_tributaria != null && codigo_subcuenca != null){
-          slct(assetid, codigo_area_tributaria, codigo_subcuenca);        
-        }
+        var codigo_area_tributaria = featureSet.attributes.codigo_area_tributaria;
+        var codigo_subcuenca = featureSet.attributes.codigo_subcuenca;
+        // if (codigo_area_tributaria != null && codigo_subcuenca != null){}
+        slct_AS(assetid, codigo_area_tributaria, codigo_subcuenca);
 
+        console.log ("featureSet", featureSet);
+        console.log ("slct_1",assetid, systemsubnetwork, sewershedsubnetwork);
+        console.log ("slct_2",assetid, codigo_area_tributaria, codigo_subcuenca);
         document.getElementById("zoneInfo_AS").innerHTML = "";
       } else {
         slct_AS_UTILITY(null, null, null);
-        slct(null, null, null);
+        slct_AS(null, null, null);
         document.getElementById("zoneInfo_AS").innerHTML = "<h6>Seleccione un objeto de Sewer Utility Network. . .</h6>";
       };
 
@@ -376,7 +377,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
         }
         /*-*/
       }
-      function slct(assetid, codigo_area_tributaria,codigo_subcuenca){
+      function slct_AS(assetid, codigo_area_tributaria,codigo_subcuenca){
         var radio1_AS = document.getElementById("Radio1_AS");
         var radio2_AS = document.getElementById("Radio2_AS");
         var input1_AS = document.getElementById("input1_AS");
@@ -384,14 +385,17 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
 
         var btnMostrarSector_AS = document.getElementById("btnMostrarSector_AS");
 
-        input1_AS.value = codigo_area_tributaria;
-        input1_AS.alt = "codigo_area_tributaria = '" + codigo_area_tributaria + "'";
-        input2_AS.value = codigo_subcuenca;
-        input2_AS.alt = "codigo_subcuenca = '" + codigo_subcuenca + "'";
+        if (codigo_area_tributaria != null){
+          input1_AS.value = codigo_area_tributaria;
+          input1_AS.alt = "codigo_area_tributaria = '" + codigo_area_tributaria + "'";  
+        }
+        if (codigo_subcuenca != null){
+          input2_AS.value = codigo_subcuenca;
+          input2_AS.alt = "codigo_subcuenca = '" + codigo_subcuenca + "'"; 
+        }
 
         if(radio1_AS.checked && input1_AS.value){
           btnMostrarSector_AS.disabled = false;
-
         }else if(radio2_AS.checked && input2_AS.value){
           btnMostrarSector_AS.disabled = false;
         }else{
