@@ -300,7 +300,7 @@ function(declare, Query, QueryTask, domConstruct, array, lang, query, on, Deferr
       that.own(this.setFeatsEvt = on(that.map.infoWindow, "set-features", lang.hitch(this, function(){
         that.clear()
         //enable navigation if more than one feature is selected
-        if(that.map.infoWindow.features.length > 0){
+        if(that.map.infoWindow.features != null && that.map.infoWindow.features.length > 0){
           that.map.infoWindow.features.forEach(feature => {
             var layerID = feature.getLayer().id;
             if(layerID.includes('servidas')||layerID.includes('SERVIDAS')||layerID.includes('Servidas')){
